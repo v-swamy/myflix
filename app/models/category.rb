@@ -4,4 +4,5 @@ class Category < ActiveRecord::Base
   def recent_videos
     videos.first(6)
   end
+  
 end
