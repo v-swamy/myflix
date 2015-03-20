@@ -4,13 +4,10 @@ describe QueueItem do
   it { should belong_to(:user) }
   it { should belong_to(:video) }
 
-  describe "#video_title" do
-    it "returns the title of the associated video" do
-      video = Fabricate(:video, title: "Monk")
-      queue_item = Fabricate(:queue_item, video: video)
-      expect(queue_item.video_title).to eq('Monk')
-    end
-  end
+  it { is_expected.to delegate_method(:video_title).to(:video).as(:title) }
+  it { is_expected.to delegate_method(:category).to(:video) }
+  it { is_expected.to delegate_method(:category_name).to(:category).as(:name) }
+
 
   describe "#rating" do
     it "returns the rating from the review when the review is present" do
@@ -25,24 +22,6 @@ describe QueueItem do
       user = Fabricate(:user)
       queue_item = Fabricate(:queue_item, video: video, user: user)
       expect(queue_item.rating).to eq(nil)
-    end
-  end
-
-  describe "#category_name" do
-    it "returns the name of the video's category" do
-      category = Fabricate(:category, name: "Comedy")
-      video = Fabricate(:video, category: category)
-      queue_item = Fabricate(:queue_item, video: video)
-      expect(queue_item.category_name).to eq("Comedy")
-    end
-  end
-
-  describe "#category" do
-    it "returns the category of the video" do
-      category = Fabricate(:category)
-      video = Fabricate(:video, category: category)
-      queue_item = Fabricate(:queue_item, video: video)
-      expect(queue_item.category).to eq(category)
     end
   end
 end
