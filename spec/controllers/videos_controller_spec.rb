@@ -3,7 +3,7 @@ require 'spec_helper'
 describe VideosController do
   describe "GET show" do  
     it "sets the @video variable for authenticated users" do
-      session[:user_id] = Fabricate(:user).id
+      set_current_user
       video = Fabricate(:video)
       get :show, id: video.id
       expect(assigns(:video)).to eq(video)
@@ -17,7 +17,7 @@ describe VideosController do
 
   describe "GET search" do
     it "sets the @results variable for authenticated users" do
-      session[:user_id] = Fabricate(:user).id
+      set_current_user
       Fabricate.times(4, :video)
       video = Fabricate(:video, title: "Star Wars")
       get :search, search: "Star"
