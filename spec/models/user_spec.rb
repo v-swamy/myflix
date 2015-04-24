@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'shoulda/matchers'
 
 describe User do
-  it { should have_many(:reviews) }
+  it { should have_many(:reviews).order(created_at: :desc) }
   it { should have_secure_password }
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:email) }
@@ -22,6 +22,21 @@ describe User do
       user = Fabricate(:user)
       video = Fabricate(:video)
       expect(user.queued_video?(video)).to be false
+    end
+  end
+
+  describe "#follows?" do
+    it "returns true if the user has a following relationship with another user" do
+      user = Fabricate(:user)
+      user2 = Fabricate(:user)
+      Fabricate(:relationship, leader: user2, follower: user)
+      expect(user.follows?(user2)).to be_true
+    end
+    it "returns false if the user does not have a following relationship with another user" do
+      user = Fabricate(:user)
+      user2 = Fabricate(:user)
+      Fabricate(:relationship, leader: user, follower: user2)
+      expect(user.follows?(user2)).to be_false
     end
   end
 end
