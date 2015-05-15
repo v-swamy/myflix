@@ -11,6 +11,11 @@ describe User do
   it { should validate_length_of(:password).is_at_least(5) }
   it { should have_many(:queue_items).order(:position) }
 
+  it "generates a random token when the user is created" do
+    user = Fabricate(:user)
+    expect(user.token).to be_present
+  end
+
   describe "#queued_video?" do
     it "returns true when the video is in the user's queue" do
       user = Fabricate(:user)
