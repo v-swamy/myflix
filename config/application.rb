@@ -14,6 +14,9 @@ module Myflix
     config.generators do |g|
       g.orm :active_record
       g.template_engine :haml
+
+    config.autoload_paths += %W(#{config.root}/lib)
+    
     end
   end
 end
