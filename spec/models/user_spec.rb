@@ -11,9 +11,8 @@ describe User do
   it { should validate_length_of(:password).is_at_least(5) }
   it { should have_many(:queue_items).order(:position) }
 
-  it "generates a random token when the user is created" do
-    user = Fabricate(:user)
-    expect(user.token).to be_present
+  it_behaves_like "tokenable" do
+    let(:object) { Fabricate(:user) }
   end
 
   describe "#queued_video?" do
@@ -42,6 +41,20 @@ describe User do
       user2 = Fabricate(:user)
       Fabricate(:relationship, leader: user, follower: user2)
       expect(user.follows?(user2)).to be_false
+    end
+  end
+
+  describe "#follow" do
+    it "follows another user" do
+      user1 = Fabricate(:user)
+      user2 = Fabricate(:user)
+      user1.follow(user2)
+      expect(user1.follows?(user2)).to be_true
+    end
+    it "does not follow oneself" do
+      user1 = Fabricate(:user)
+      user1.follow(user1)
+      expect(user1.follows?(user1)).to be_false
     end
   end
 end
