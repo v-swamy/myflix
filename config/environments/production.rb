@@ -28,4 +28,6 @@ Myflix::Application.configure do
     authentication:       'plain',
   }
 
+  config.action_mailer.default_url_options = { host: 'vswamy-myflix.heroku.com' }
+
 end
