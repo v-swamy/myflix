@@ -1,0 +1,19 @@
+machine:
+  ruby:
+    version: 2.1.5
+deployment:
+  production:
+    branch: master
+    commands:
+      - heroku maintenance:on --app vswamy-myflix
+      - heroku pg:backups capture --app vswamy-myflix
+      - git push git@heroku.com:vswamy-myflix.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app vswamy-myflix
+      - heroku maintenance:off --app vswamy-myflix
+  staging:
+    branch: staging
+    commands:
+      - heroku maintenance:on --app vswamy-myflix-staging
+      - git push git@heroku.com:vswamy-myflix-staging.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app vswamy-myflix-staging
+      - heroku maintenance:off --app vswamy-myflix-staging
