@@ -23,6 +23,10 @@ Myflix::Application.routes.draw do
 
   resources :relationships, only: [:create, :destroy]
 
+  namespace :admin do
+    resources :videos, only: [:new, :create]
+  end
+
   resources :videos do
     collection do
       get 'search', to: 'videos#search'
