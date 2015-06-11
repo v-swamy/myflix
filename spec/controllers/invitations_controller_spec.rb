@@ -21,6 +21,7 @@ describe InvitationsController do
     context "with valid input" do
 
       after { ActionMailer::Base.deliveries.clear }
+      around(:each) { |example| ActionMailer::Base.deliveries.clear ; example.run ; ActionMailer::Base.deliveries.clear }
 
       it "redirects to the invitation page" do
         set_current_user
