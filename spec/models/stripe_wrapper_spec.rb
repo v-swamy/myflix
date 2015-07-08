@@ -18,7 +18,7 @@ describe StripeWrapper do
           card: token,
           description: "a valid charge"
         )
-:      expect(response).to be_successful
+        expect(response).to be_successful
       end
 
       it "makes a card declined charge", :vcr do
