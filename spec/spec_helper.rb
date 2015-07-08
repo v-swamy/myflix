@@ -18,7 +18,7 @@ Sidekiq::Testing.inline!
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 VCR.configure do |c|
-  c.cassette_library_dir = 'spec/cassettes'
+  c.cassette_library_dir = "spec/cassettes"
   c.hook_into :webmock
   c.configure_rspec_metadata!
   c.ignore_localhost = true
@@ -26,7 +26,6 @@ end
 
 Capybara.server_port = 52662
 Capybara.javascript_driver = :webkit
-
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -83,7 +82,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :truncation
   end
 
-  config.before(:each, :js => true) do
+  config.before(:each, js: true) do
     DatabaseCleaner.strategy = :truncation
   end
 
