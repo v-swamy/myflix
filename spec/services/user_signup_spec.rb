@@ -45,20 +45,18 @@ describe UserSignup do
         UserSignup.new(Fabricate.build(:user, name: "Vik Swamy")).sign_up("some_stripe_token", nil)
         expect(ActionMailer::Base.deliveries.last.body).to include("Vik Swamy")
       end
-
     end
 
     context "valid personal info and declined card" do
-
       it "does not create a new user record" do
-        charge = double(:charge, successful?: false, error_message: "Your card was declined." )
+        charge = double(:charge, successful?: false, error_message: "Your card was declined.")
         StripeWrapper::Charge.should_receive(:create).and_return(charge)
         UserSignup.new(Fabricate.build(:user)).sign_up("some_stripe_token", nil)
         expect(User.count).to eq(0)
       end
+    end
 
     context "with invalid personal info" do
-
       after { ActionMailer::Base.deliveries.clear }
 
       it "does not create the user" do
@@ -76,8 +74,5 @@ describe UserSignup do
         expect(ActionMailer::Base.deliveries).to be_empty
       end
     end
-
-    end
-
   end
 end
