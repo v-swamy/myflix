@@ -7,7 +7,7 @@
         %header
           %h3= @video.title
           %span
-          = "Rating: #{@video.avg_rating}"
+          = "Rating: #{@video.rating}"
         %p= @video.description
         .actions
           = link_to "Watch Now", @video.video_url, class: "btn btn-primary"
