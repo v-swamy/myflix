@@ -4,5 +4,4 @@ class VideoDecorator < Draper::Decorator
   def rating
     object.reviews.count != 0 ? "#{object.avg_rating}" : "N/A"
   end
-
 end

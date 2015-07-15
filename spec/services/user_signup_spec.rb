@@ -16,8 +16,10 @@ describe UserSignup do
       it "makes the user follow the inviter" do
         user1 = Fabricate(:user)
         invitation = Fabricate(:invitation, inviter: user1)
-        UserSignup.new(Fabricate.build(:user, email: invitation.recipient_email)).
-          sign_up(stripe_token: "some_stripe_token", invitation_token: invitation.token)
+        UserSignup.new(Fabricate.build(:user, email: invitation.recipient_email)).sign_up(
+          stripe_token: "some_stripe_token", 
+          invitation_token: invitation.token
+        )
         user2 = User.find_by(email: invitation.recipient_email)
         expect(user2.follows?(user1)).to be_true
       end
@@ -25,8 +27,10 @@ describe UserSignup do
       it "makes the inviter follow the user" do
         user1 = Fabricate(:user)
         invitation = Fabricate(:invitation, inviter: user1)
-        UserSignup.new(Fabricate.build(:user, email: invitation.recipient_email)).
-          sign_up(stripe_token: "some_stripe_token", invitation_token: invitation.token)
+        UserSignup.new(Fabricate.build(:user, email: invitation.recipient_email)).sign_up(
+          stripe_token: "some_stripe_token", 
+          invitation_token: invitation.token
+        )
         user2 = User.find_by(email: invitation.recipient_email)
         expect(user1.follows?(user2)).to be_true
       end
@@ -34,8 +38,10 @@ describe UserSignup do
       it "expires the invitation upon acceptance" do
         user1 = Fabricate(:user)
         invitation = Fabricate(:invitation, inviter: user1)
-        UserSignup.new(Fabricate.build(:user, email: invitation.recipient_email)).
-          sign_up(stripe_token: "some_stripe_token", invitation_token: invitation.token)
+        UserSignup.new(Fabricate.build(:user, email: invitation.recipient_email)).sign_up(
+          stripe_token: "some_stripe_token", 
+          invitation_token: invitation.token
+        )
         expect(Invitation.first.token).to be_nil
       end
 

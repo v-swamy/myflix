@@ -9,8 +9,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    result = UserSignup.new(@user).sign_up(stripe_token: params[:stripeToken], 
-      invitation_token: params[:invitation_token])
+    result = UserSignup.new(@user).sign_up(
+      stripe_token: params[:stripeToken], 
+      invitation_token: params[:invitation_token]
+    )
 
     if result.successful?
       flash[:success] = "Thank you for registering with MyFlix. Please sign in to continue."
