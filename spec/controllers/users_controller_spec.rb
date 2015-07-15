@@ -19,7 +19,6 @@ describe UsersController do
     end
 
     context "failed user signup" do
-      
       it "renders the new template" do
         result = double(:sign_up_result, successful?: false, error_message: "This is an error message.")
         UserSignup.any_instance.should_receive(:sign_up).and_return(result)

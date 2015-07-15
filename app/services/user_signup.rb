@@ -5,16 +5,16 @@ class UserSignup
     @user = user
   end
 
-  def sign_up(stripe_token, invitation_token)
+  def sign_up(options={})
     if @user.valid?
       charge = StripeWrapper::Charge.create(
         amount: 999,
-        card: stripe_token,
+        card: options[:stripe_token],
         description: "Sign up charge for #{@user.email}"
       )
       if charge.successful?
         @user.save
-        handle_invitation(invitation_token)
+        handle_invitation(options[:invitation_token])
         AppMailer.send_welcome_email(@user).deliver
         @status = :success
         self
@@ -44,6 +44,4 @@ class UserSignup
       invitation.update_column(:token, nil)
     end
   end
-
-
 end
