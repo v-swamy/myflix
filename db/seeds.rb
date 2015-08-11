@@ -10,7 +10,7 @@ drama = Category.create(name: "Drama")
 comedy = Category.create(name: "Comedy")
 suspense = Category.create(name: "Suspense")
 
-stella = User.create(name: "Stella", email: "stella@gmail.com", password: "stellababy")
+stella = User.create(name: "Stella", email: "stella@gmail.com", password: "stellababy", admin: true)
 vik = User.create(name: "Vikram Swamy", email: "vswamy@gmail.com", password: "naynay")
 
 Video.create(title: 'Monk', description: "Hampered by an odd variety of phobias and obsessive-compulsive tendencies that surfaced after his wife's murder, brilliant San Francisco police detective Adrian Monk (Tony Shalhoub) quits the force and begins working as a consultant on the SFPD's toughest cases. Monk's former superior, Capt. Stottlemeyer (Ted Levine), grudgingly calls on him for help but refuses to let the eccentric ex-cop rejoin the force.",
